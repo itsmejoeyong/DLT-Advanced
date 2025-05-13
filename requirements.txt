@@ -1,0 +1,3 @@
+dlt[cli] == 1.10.0
+dlt[duckdb] == 1.10.0
+loguru == 0.7.3
