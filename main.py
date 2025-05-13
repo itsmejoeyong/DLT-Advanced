@@ -39,7 +39,6 @@ def jaffle_shop():
     def orders():
         l.info("processing orders")
         for page in client.paginate("/orders", params={"start_date": "2017-01-01", "end_date": "2017-01-07"}):
-            l.debug("processing page")
             for item in page:
                 yield item
 
@@ -52,11 +51,5 @@ pipeline = dlt.pipeline(
     dataset_name="jaffle_shop",
 )
 
-extract_info = pipeline.extract(jaffle_shop())
-l.success(f"Total extract time: {extract_runtime(extract_info)}")
-
-normalize_info = pipeline.normalize()
-l.success(f"Total normalize time: {extract_runtime(normalize_info)}")
-
-load_info = pipeline.load()
+load_info = pipeline.run(jaffle_shop())
 l.success(f"Total load time: {extract_runtime(load_info)}")
